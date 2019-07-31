@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+	{% for postim in postime.items %}
+<article class="media content-section">
+  <img src="{{ url_for('static', filename='imazhet_profilit/' + postim.autori.image_file) }}" class="rounded-circle article-img">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="{{ url_for('postim.postim', postim_id=postim.id) }}">{{ postim.autori.emri_perdoruesit }}</a>
+      <small class="text-muted">Postuar me: {{ postim.data_postimit.strftime('%d-%m-%Y') }}</small>
+    </div>
+    <h2><a class="article-title" href="{{ url_for('postim.postim', postim_id=postim.id) }}">{{ postim.titull }}</a></h2>
+    <p class="article-content">{{ postim.permbajtja }}</p>
+  </div>
+</article>
+	{% endfor %}
+  {% for nr_faqeve in postime.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if nr_faqeve %}
+      {% if postime.page == nr_faqeve %}
+       <a class="btn btn-info mb-4" href="{{ url_for('main.kryefaqe', page=nr_faqeve) }}">{{ nr_faqeve }}</a>
+      {% else %}
+       <a class="btn btn-outline-info mb-4" href="{{ url_for('main.kryefaqe', page=nr_faqeve) }}">{{ nr_faqeve }}</a>
+      {% endif %}
+
+    {% endif %}
+  {% endfor %}
+{% endblock content %}
+

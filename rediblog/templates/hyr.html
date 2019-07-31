@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Hyr ne adresen tende!</legend>
+               
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-check">
+                     {{ form.mbajmend(class="form-check-input") }}
+                     {{ form.mbajmend.label(class="form-check-label") }}
+                </div>
+                
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+                 <small class="text-muted ml-2">
+                <a href="{{ url_for('perdorues.reset_request') }}">Ke harruar fjalkalimin?</a>
+            </small>
+            </div>
+           
+        </form>
+        <div class="border-top pt-3"></div>
+        <small class="text-muted">
+            Nuk ke nje adrese?<a href="{{ url_for('perdorues.regjistrohu') }}" class="ml-2">Regjistrohu</a>
+        </small>
+    </div>
+{% endblock content %}

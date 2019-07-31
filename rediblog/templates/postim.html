@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+	
+<article class="media content-section">
+  <img src="{{ url_for('static', filename='imazhet_profilit/' + postim.autori.image_file) }}" class="rounded-circle article-img">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="{{ url_for('postim.postim', postim_id=postim.id) }}">{{ postim.autori.emri_perdoruesit }}</a>
+      <small class="text-muted">Postuar me: {{ postim.data_postimit.strftime('%d-%m-%Y') }}</small>
+
+      {% if postim.autori == current_user %}
+      <div style='color: white' class="btn btn-secondary btn-sm mt-1 mb-1"><a href="{{ url_for('postim.perditso_postim', postim_id=postim.id) }}">Perditso</a></div>
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle='modal' data-target="#deleteModel">Fshij</button>
+      {% endif %}
+    </div>
+    <h2 class="article-title" >{{ postim.titull }}</a></h2>
+    <p class="article-content">{{ postim.permbajtja }}</p>
+  </div>
+</article>
+
+<div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Fshij Postimin?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Mbyll</button>
+        <form action="{{ url_for('postim.fshij_postimin', postim_id=postim.id) }}" method="POST">
+          <input type="submit" value="Fshij" class="btn btn-danger">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+{% endblock content %}
